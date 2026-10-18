@@ -1,0 +1,25 @@
+# Poids de chaque test pour le score de risque basé sur les règles
+# Plus le poids est élevé, plus le test contribue au score final
+
+test_weights:
+  T1_benford: 8        # Loi de Benford — signal statistique fort
+  T2_duplicates: 10    # Doublons — risque élevé de fraude
+  T3_round_amounts: 5  # Montants ronds — signal faible seul
+  T4_unusual_hours: 6  # Horaires atypiques — signal modéré
+  T5_splitting: 9      # Fractionnement — contournement de seuil
+  T6_imbalance: 10     # Déséquilibre — erreur ou manipulation
+  T7_rare_pairs: 7     # Paires rares — signal modéré
+  T8_late_posting: 6   # Saisie tardive — signal modéré
+  T9_atypical_user: 7  # Utilisateur atypique — signal modéré
+
+# Combinaison du score règles et du score Isolation Forest
+scoring:
+  rule_weight: 0.6       # Poids du score basé sur les règles
+  iforest_weight: 0.4    # Poids du score Isolation Forest
+  contamination: 0.02    # Proportion estimée d'anomalies pour Isolation Forest
+
+# Niveaux de risque (sur score final normalisé 0-100)
+risk_levels:
+  low_max: 30            # 0-30 : risque faible
+  medium_max: 60         # 31-60 : risque moyen
+  # 61-100 : risque élevé

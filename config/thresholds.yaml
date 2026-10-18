@@ -1,0 +1,81 @@
+# Seuils et paramètres pour chaque test d'audit
+
+t1_benford:
+  min_lines_per_group: 200    # Nombre minimum de lignes par groupe de comptes
+  account_prefix_length: 3    # Longueur du préfixe de compte pour analyse homogène (ex: 512, 401, 601)
+  mad_conforming: 0.006       # MAD < 0.006 : conforme
+  mad_acceptable: 0.012       # MAD < 0.012 : acceptable
+  mad_marginal: 0.015         # MAD < 0.015 : marginalement acceptable
+  # MAD >= 0.015 : non conforme
+  z_score_threshold: 2.58     # Seuil z-score pour signaler un chiffre (99% confiance)
+  min_deviation: 0.01         # Écart minimum absolu (obs - exp) pour signaler un chiffre
+  min_mad_status: "non_conforme" # Statut MAD minimum pour déclencher le signalement
+
+t2_duplicates:
+  window_days: 5              # Fenêtre de recherche en jours
+  min_amount: 0.01            # Montant minimum pour considérer un doublon
+
+t3_round_amounts:
+  multiple: 1000              # Multiple considéré comme "rond"
+  sensitive_accounts:         # Préfixes de comptes sensibles
+    - "6"                     # Charges
+    - "7"                     # Produits
+    - "401"                   # Fournisseurs
+    - "411"                   # Clients
+
+
+t4_unusual_hours:
+  night_start: 22
+  night_end: 6
+  holidays:
+    - "01-01"  # Nouvel An
+    - "01-11"  # Manifeste de l'indépendance
+    - "01-14"  # Nouvel An amazigh
+    - "05-01"  # Fête du Travail
+    - "07-30"  # Fête du Trône
+    - "08-14"  # Récupération de Oued Eddahab
+    - "08-20"  # Révolution du Roi et du Peuple
+    - "08-21"  # Fête de la Jeunesse
+    - "11-06"  # Marche Verte
+    - "11-18"  # Fête de l'Indépendance
+
+
+t5_splitting:
+  approval_threshold: 10000   # Seuil d'approbation (€)
+  margin_pct: 0.10            # Marge sous le seuil (10%)
+  min_entries: 2              # Nombre minimum d'écritures pour détecter un fractionnement
+
+t6_imbalance:
+  tolerance: 0.01             # Tolérance d'arrondi en euros
+
+t7_rare_pairs:
+  min_occurrences: 3          # Nombre minimum d'occurrences pour qu'une paire soit "normale"
+  sensitive_accounts:
+    - "6"
+    - "7"
+    - "1"
+
+t8_late_posting:
+  max_days: 30                # Écart maximum toléré (jours)
+
+t9_atypical_user:
+  z_threshold: 2.5            # Seuil de z-score robuste
+
+# Paramètres de génération de données synthétiques
+data_generation:
+  seed: 42
+  n_entries: 15000            # Nombre d'écritures (chaque écriture a 2+ lignes)
+  n_lines: 100000             # Nombre approximatif de lignes
+  n_months: 12
+  n_accounts: 40
+  n_users: 15
+  anomaly_injection:
+    duplicates: 60
+    round_amounts: 80
+    weekend_night: 100
+    splitting_groups: 40
+    imbalanced: 30
+    rare_pairs: 50
+    late_posting: 60
+    atypical_users: 2
+    benford_accounts: 1

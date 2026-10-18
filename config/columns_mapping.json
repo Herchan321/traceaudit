@@ -1,0 +1,14 @@
+{
+    "entry_id": "entry_id",
+    "line_id": "line_id",
+    "account": "account",
+    "account_label": "account_label",
+    "debit": "debit",
+    "credit": "credit",
+    "posting_date": "posting_date",
+    "document_date": "document_date",
+    "created_at": "created_at",
+    "user_id": "user_id",
+    "source": "source",
+    "description": "description"
+}
